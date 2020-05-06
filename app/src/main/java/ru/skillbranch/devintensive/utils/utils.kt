@@ -2,12 +2,22 @@ package ru.skillbranch.devintensive.utils
 
 object Utils {
     fun parseFullName(fullName:String?):Pair<String?, String?>{
-        val parts: List<String> = fullName?.trim()?.split(" ") ?: listOf()
-        val firstName = parts.getOrElse(0, { "" })
-        val lastName = parts.getOrElse(1, { "" })
-
+        val parts: List<String>? = fullName?.trim()?.split(" ")
+        var firstName = parts?.getOrNull(0)
+        var lastName = parts?.getOrNull(1)
+        if(firstName.isNullOrEmpty()) firstName = null
+        if(lastName.isNullOrEmpty()) lastName = null
         return firstName to lastName
     }
+
+
+//    fun parseFullName(fullName:String?):Pair<String?, String?>{
+//        val parts: List<String> = fullName?.trim()?.split(" ") ?: listOf()
+//        val firstName = parts.getOrElse(0, { "" })
+//        val lastName = parts.getOrElse(1, { "" })
+//
+//        return firstName to lastName
+//    }
 
     fun transliteration(payload: String, divider: String = " "): String {
         val result = payload.replace(Regex("[абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ ]")) {
@@ -86,7 +96,11 @@ object Utils {
     }
 
     fun toInitials(firstName: String?, lastName: String?): String? {
-        return "${if(firstName.isNullOrEmpty()) "" else firstName?.let { transliteration(it) }?.get(0)}" +
-                "${if(lastName.isNullOrEmpty()) "" else lastName?.let { transliteration(it) }?.get(0)}"
+        return if(firstName?.trim().isNullOrEmpty()&&lastName?.trim().isNullOrEmpty()) "null"
+        else
+            if (firstName?.trim().isNullOrEmpty()) "${lastName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0)}"
+            else
+                if (lastName?.trim().isNullOrEmpty()) "${firstName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0)}"
+                else "${firstName?.capitalize()?.let { transliteration(it) }?.get(0)}${lastName?.capitalize()?.let { transliteration(it) }?.get(0)}"
     }
 }

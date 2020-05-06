@@ -3,11 +3,9 @@ package ru.skillbranch.devintensive
 import org.junit.Test
 
 import org.junit.Assert.*
-import ru.skillbranch.devintensive.extensions.TimeUnits
-import ru.skillbranch.devintensive.extensions.add
-import ru.skillbranch.devintensive.extensions.format
-import ru.skillbranch.devintensive.extensions.toUserView
+import ru.skillbranch.devintensive.extensions.*
 import ru.skillbranch.devintensive.models.*
+import ru.skillbranch.devintensive.utils.Utils
 import java.util.*
 
 /**
@@ -28,12 +26,23 @@ class ExampleUnitTest {
 
     @Test
     fun test_factory(){
-        val user1 = User.makeUser("Yana Ostapenko")
+        val user1 = User.makeUser(null)
+        println("$user1 ${user1.firstName} ${user1.lastName} ")
+        println()
         val user2 = User.makeUser("")
-        val user3 = User.makeUser("     ")
-        val user4 = User.makeUser(" vasya")
-        val user5 = user1.copy(id="5", lastName = "Altman", lastVisit = Date())
-        print("$user1 \n$user5")
+        println("$user2 ${user2.firstName} ${user2.lastName} ")
+        println()
+        val user3 = User.makeUser(" ")
+        println("$user3 ${user3.firstName} ${user3.lastName} ")
+        println()
+        val user4 = User.makeUser("vasya")
+        println("$user4 ${user4.firstName} ${user4.lastName} ")
+        println()
+        val user5 = User.makeUser("  vasya")
+        println("$user5 ${user5.firstName} ${user5.lastName} ")
+        println()
+       //val user5 = user1.copy(id="5", lastName = "Altman", lastVisit = Date())
+        //print("$user1 \n$user5")
     }
 
     @Test
@@ -55,7 +64,7 @@ class ExampleUnitTest {
             ${user .lastVisit?.format()}
             ${user2.lastVisit?.format()}
             ${user3.lastVisit?.format()}
-            ${user4.lastVisit?.format()}
+            ${user4.lastVisit?.format("HH:mm")}
         """.trimIndent())
 
 //        if(user == user2){
@@ -82,10 +91,22 @@ class ExampleUnitTest {
     }
 
     @Test
+    fun test_toInitials(){
+        println(Utils.toInitials("Яна", "Остапенко"))
+        println(Utils.toInitials(" ", ""))
+        println(Utils.toInitials(null, ""))
+        println(Utils.toInitials("yana", null))
+        println(Utils.toInitials(null,"dfssadf dsfasdf asDAsdsad"))
+        println(Utils.toInitials(null, null))
+    }
+
+    @Test
     fun test_transliteration(){
-        val user = User.makeUser("небовглазах моревнутри")
+        val user = User.makeUser("яна зажигаева")
         println(user.toUserView().fullName)
-        println(user.toUserView().initials)
+        println(Utils.transliteration("Женя Стереотипов"))
+        println(Utils.transliteration("Amazing Петр","_"))
+
     }
 
     @Test
@@ -119,5 +140,18 @@ class ExampleUnitTest {
 //            is TextMessage -> println("это текстовое сообщение")
 //            is ImageMessage -> println("это картинка")
 //        }
+    }
+
+    @Test
+    fun test_humanizeDiff(){
+        println(Date().add(-2, TimeUnits.HOUR).humanizeDiff()) //2 часа назад
+        println(Date().add(-5, TimeUnits.DAY).humanizeDiff()) //5 дней назад
+        println(Date().add(2, TimeUnits.MINUTE).humanizeDiff()) //через 2 минуты
+        println(Date().add(7, TimeUnits.DAY).humanizeDiff()) //через 7 дней
+        println(Date().add(-400, TimeUnits.DAY).humanizeDiff()) //более года назад
+        println(Date().add(400, TimeUnits.DAY).humanizeDiff()) //более чем через год
+        println(Date().add(1, TimeUnits.SECOND).humanizeDiff())
+        println(Date().add(1, TimeUnits.DAY).humanizeDiff())
+        println(Date().add(46, TimeUnits.SECOND).humanizeDiff())
     }
 }
