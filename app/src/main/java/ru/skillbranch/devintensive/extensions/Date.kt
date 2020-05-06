@@ -1,14 +1,7 @@
 package ru.skillbranch.devintensive.extensions
 
-import android.icu.util.DateInterval
-import androidx.core.util.rangeTo
-import androidx.core.util.toClosedRange
-import ru.skillbranch.devintensive.models.User
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.time.Duration
-import kotlin.time.DurationUnit
-import kotlin.time.toDuration
 
 const val SECOND = 1000L
 const val MINUTE = 60 * SECOND
@@ -33,10 +26,6 @@ fun Date.add(value:Int, units: TimeUnits = TimeUnits.SECOND):Date{
     return this
 }
 
-fun Date.setTimeLastVisit(dateText:String): Int {
-    val k: Int = 4
-    return k
-}
 
 private fun pluralForm(n: Int, form1: String, form2: String, form5: String): String{
     val n1 = n % 100
@@ -49,17 +38,26 @@ private fun pluralForm(n: Int, form1: String, form2: String, form5: String): Str
 
 fun Date.humanizeDiff(): String {
     val longDiff = System.currentTimeMillis() - this.time
-    val time1 =
-        if(longDiff<1000) "только что"
-        else if (longDiff<45000) "несколько секунд назад"
-        else if (longDiff<75000) "минуту назад"
-        else if (longDiff<(45*60*1000)) "${longDiff / (1000*60)} ${pluralForm((longDiff/1000/60).toInt(),"минута", "минуты", "минут")} назад"
-        else if (longDiff<(75*60*1000)) "час назад"
-        else if (longDiff<(22.toLong()*60*60*1000)) "${longDiff / (1000*60*60)} ${pluralForm((longDiff/1000/60/60).toInt(),"час", "часа", "часов")} назад"
-        else if (longDiff<(26.toLong()*60*60*1000)) "день назад"
-        else if (longDiff<(360.toLong()*24*60*60*1000)) "${longDiff / (1000*60*60*24)} ${pluralForm((longDiff/1000/60/60/24).toInt(),"день", "дня", "дней")} назад"
-        else "более года назад"
-    return time1
+    return when {
+        longDiff <= -(360.toLong()*24*60*60*1000) -> "более чем через год"
+        longDiff in -(360.toLong()*24*60*60*1000) until -(26.toLong()*60*60*1000)+1 -> "через ${-longDiff / (1000*60*60*24)} ${pluralForm((-longDiff/1000/60/60/24).toInt(),"день", "дня", "дней")}"
+        longDiff in -(26.toLong()*60*60*1000) until -(22.toLong()*60*60*1000)+1 -> "через день"
+        longDiff in -(22.toLong()*60*60*1000) until -(75*60*1000)+1 -> "через ${-longDiff / (1000*60*60)} ${pluralForm((-longDiff/1000/60/60).toInt(),"час", "часа", "часов")}"
+        longDiff in -(75*60*1000) until -(45*60*1000)+1 -> "через час"
+        longDiff in -(45*60*1000) until -75001 -> "через ${-longDiff / (1000*60)} ${pluralForm((-longDiff/1000/60).toInt(),"минуту", "минуты", "минут")}"
+        longDiff in -75000..-45001 -> "через минуту"
+        longDiff in -45000..0 -> "через несколько секунд"
+        longDiff in 0..1000 -> "только что"
+        longDiff in 1001..45000 -> "несколько секунд назад"
+        longDiff in 45001..75000 -> "минуту назад"
+        longDiff in 75001 until (45*60*1000) -> "${longDiff / (1000*60)} ${pluralForm((longDiff/1000/60).toInt(),"минута", "минуты", "минут")} назад"
+        longDiff in (45*60*1000)+1 until (75*60*1000) -> "час назад"
+        longDiff in (75*60*1000)+1 until (22.toLong()*60*60*1000) -> "${longDiff / (1000*60*60)} ${pluralForm((longDiff/1000/60/60).toInt(),"час", "часа", "часов")} назад"
+        longDiff in (22.toLong()*60*60*1000)+1 until (26.toLong()*60*60*1000) -> "день назад"
+        longDiff in (26.toLong()*60*60*1000)+1 until (360.toLong()*24*60*60*1000) -> "${longDiff / (1000*60*60*24)} ${pluralForm((longDiff/1000/60/60/24).toInt(),"день", "дня", "дней")} назад"
+        longDiff >= (360.toLong()*24*60*60*1000) -> "более года назад"
+        else -> "хз"
+    }
 }
 
 enum class TimeUnits{
