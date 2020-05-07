@@ -19,11 +19,6 @@ class ExampleUnitTest {
         assertEquals(4, 2 + 2)
     }
 
-//    @Test
-//    fun test_instance() {
-//        val user2 = User("2","John", "Doe")
-//    }
-
     @Test
     fun test_factory(){
         val user1 = User.makeUser(null)
@@ -41,8 +36,6 @@ class ExampleUnitTest {
         val user5 = User.makeUser("  vasya")
         println("$user5 ${user5.firstName} ${user5.lastName} ")
         println()
-       //val user5 = user1.copy(id="5", lastName = "Altman", lastVisit = Date())
-        //print("$user1 \n$user5")
     }
 
     @Test
@@ -66,22 +59,8 @@ class ExampleUnitTest {
             ${user3.lastVisit?.format()}
             ${user4.lastVisit?.format("HH:mm")}
         """.trimIndent())
-
-//        if(user == user2){
-//            println("equals data and hash \n$(user.hashCode() $user \n$(user2.hashCode()} $user2")
-//        }
-//        else{
-//            println("not equals data and hash \n$(user.hashCode() $user \n$(user2.hashCode()} $user2")
-//        }
-//
-//        user2 = user
-//        if(user === user2){
-//            println("equals address ${System.identityHashCode(user)} ${System.identityHashCode(user2)}")
-//        }
-//        else{
-//            println("not equals address ${System.identityHashCode(user)} ${System.identityHashCode(user2)}")
-//        }
     }
+
     @Test
     fun test_lastVisit(){
         val user = User.makeUser("Надежда Кузнецова")
@@ -126,20 +105,6 @@ class ExampleUnitTest {
 
         println(txtMessage.formatMessage())
         println(imgMessage.formatMessage())
-
-//        when(imgMessage){
-//            is TextMessage -> println("это текстовое сообщение")
-//            is ImageMessage -> println("это картинка")
-//        }
-//        when(txtMessage){
-//            is TextMessage -> println("это текстовое сообщение")
-//            is ImageMessage -> println("это картинка")
-//        }
-//        when(imgMessage){
-//            is BaseMessage -> println("это")
-//            is TextMessage -> println("это текстовое сообщение")
-//            is ImageMessage -> println("это картинка")
-//        }
     }
 
     @Test
@@ -153,5 +118,41 @@ class ExampleUnitTest {
         println(Date().add(1, TimeUnits.SECOND).humanizeDiff())
         println(Date().add(1, TimeUnits.DAY).humanizeDiff())
         println(Date().add(46, TimeUnits.SECOND).humanizeDiff())
+    }
+
+    @Test
+    fun test_builder(){
+        val user = User.Builder().id("6")
+        .firstName("Катя")
+        .lastName("Полежаева")
+        .avatar("какая-то картинка")
+        .rating(45)
+        .respect(9)
+        .lastVisit(Date().add(-30, TimeUnits.DAY))
+        .isOnline(false)
+        .build()
+        println(user.toString())
+    }
+
+    @Test
+    fun test_plural(){
+        assertEquals("3 часа", TimeUnits.HOUR.plural(3))
+        println(TimeUnits.MINUTE.plural(30))
+        println(TimeUnits.DAY.plural(324))
+        println(TimeUnits.SECOND.plural(1))
+    }
+
+    @Test
+    fun test_truncate(){
+        assertEquals("Bender Bending R...","Bender Bending Rodriguez — дословно «Сгибальщик Сгибающий Родригес»".truncate())//Bender Bending R...
+        assertEquals("Bender Bending...","Bender Bending Rodriguez — дословно «Сгибальщик Сгибающий Родригес»".truncate(15)) //Bender Bending...
+        assertEquals("A","A     ".truncate(3)) //A
+
+    }
+
+    @Test
+    fun test_stripHtml(){
+        println("<p class=\"title\">Образовательное IT-сообщество Skill Branch</p>".stripHtml()) //Образовательное IT-сообщество Skill Branch
+        println("<p>Образовательное       IT-сообщество Skill Branch</p>".stripHtml()) //Образовательное IT-сообщество Skill Branch
     }
 }

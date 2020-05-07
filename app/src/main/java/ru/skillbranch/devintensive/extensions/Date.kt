@@ -26,12 +26,20 @@ fun Date.add(value:Int, units: TimeUnits = TimeUnits.SECOND):Date{
     return this
 }
 
+fun TimeUnits.plural(value: Int): String{
+    return when (this) {
+        TimeUnits.SECOND -> "$value ${pluralForm(value.toInt(), "секунду", "секунды", "секунд")}"
+        TimeUnits.MINUTE -> "$value ${pluralForm(value.toInt(), "минуту", "минуты", "минут")}"
+        TimeUnits.HOUR -> "$value ${pluralForm(value.toInt(), "час", "часа", "часов")}"
+        TimeUnits.DAY -> "$value ${pluralForm(value.toInt(), "день", "дня", "дней")}"
+    }
+}
 
 private fun pluralForm(n: Int, form1: String, form2: String, form5: String): String{
     val n1 = n % 100
     val n2 = n % 10
-    if (n1 > 10 && n1 < 20) return form5
-    if (n2 > 1 && n2 < 5) return form2
+    if (n1 in 11..19) return form5
+    if (n2 in 2..4) return form2
     if (n2 == 1) return form1
     return form5
 }

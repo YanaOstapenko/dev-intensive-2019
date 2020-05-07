@@ -10,15 +10,6 @@ object Utils {
         return firstName to lastName
     }
 
-
-//    fun parseFullName(fullName:String?):Pair<String?, String?>{
-//        val parts: List<String> = fullName?.trim()?.split(" ") ?: listOf()
-//        val firstName = parts.getOrElse(0, { "" })
-//        val lastName = parts.getOrElse(1, { "" })
-//
-//        return firstName to lastName
-//    }
-
     fun transliteration(payload: String, divider: String = " "): String {
         val result = payload.replace(Regex("[абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ ]")) {
             when (it.value) {
