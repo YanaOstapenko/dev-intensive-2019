@@ -137,8 +137,8 @@ class ExampleUnitTest {
     @Test
     fun test_plural(){
         assertEquals("3 часа", TimeUnits.HOUR.plural(3))
-        println(TimeUnits.MINUTE.plural(30))
-        println(TimeUnits.DAY.plural(324))
+        println(TimeUnits.MINUTE.plural(80))
+        println(TimeUnits.DAY.plural(304))
         println(TimeUnits.SECOND.plural(1))
     }
 

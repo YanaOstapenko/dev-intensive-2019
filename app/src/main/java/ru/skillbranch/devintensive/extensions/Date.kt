@@ -26,15 +26,6 @@ fun Date.add(value:Int, units: TimeUnits = TimeUnits.SECOND):Date{
     return this
 }
 
-fun TimeUnits.plural(value: Int): String{
-    return when (this) {
-        TimeUnits.SECOND -> "$value ${pluralForm(value.toInt(), "секунду", "секунды", "секунд")}"
-        TimeUnits.MINUTE -> "$value ${pluralForm(value.toInt(), "минуту", "минуты", "минут")}"
-        TimeUnits.HOUR -> "$value ${pluralForm(value.toInt(), "час", "часа", "часов")}"
-        TimeUnits.DAY -> "$value ${pluralForm(value.toInt(), "день", "дня", "дней")}"
-    }
-}
-
 private fun pluralForm(n: Int, form1: String, form2: String, form5: String): String{
     val n1 = n % 100
     val n2 = n % 10
@@ -72,5 +63,14 @@ enum class TimeUnits{
     SECOND,
     MINUTE,
     HOUR,
-    DAY
+    DAY;
+
+    fun plural(value: Int): String{
+        return when (this) {
+            TimeUnits.SECOND -> "$value ${pluralForm(value.toInt(), "секунду", "секунды", "секунд")}"
+            TimeUnits.MINUTE -> "$value ${pluralForm(value.toInt(), "минуту", "минуты", "минут")}"
+            TimeUnits.HOUR -> "$value ${pluralForm(value.toInt(), "час", "часа", "часов")}"
+            TimeUnits.DAY -> "$value ${pluralForm(value.toInt(), "день", "дня", "дней")}"
+        }
+    }
 }
