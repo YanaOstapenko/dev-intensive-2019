@@ -75,12 +75,17 @@ class ExampleUnitTest {
         println(Utils.toInitials(" ", "")) //null
         println(Utils.toInitials(null, "")) //null
         println(Utils.toInitials("yana", null)) //Y
-        println(Utils.toInitials(null,"dfssadfdsfasdfasDAsdsad")) //D
+        println(Utils.toInitials(null,"dfssadf         dsfasdfasDAsdsad")) //D
         println(Utils.toInitials(null, null)) //null
         println(Utils.toInitials("john" ,"doe")) //JD
         println(Utils.toInitials("John", null)) //J
         println(Utils.toInitials("77", "23434")) //null
         println(Utils.toInitials("     23", "")) //null
+        println(Utils.toInitials("-23", " ")) //null
+        println(Utils.toInitials("-23", null)) //null
+        println(Utils.toInitials("&", "")) //null
+        println(Utils.toInitials("&", "Пупкин")) //P
+        println(Utils.toInitials("Вася", ":")) //V
     }
 
     @Test

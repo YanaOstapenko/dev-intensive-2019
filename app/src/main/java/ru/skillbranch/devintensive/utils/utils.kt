@@ -86,15 +86,12 @@ object Utils {
         return result
     }
 
-    private fun toInitial(str: String?): String? {
-        return str?.replace(Regex("[^a-zA-Z]"), "")?.take(1)?.capitalize()
-    }
-    fun toInitials(firstName: String?, lastName: String?): String? {
-//        val list = listOf('Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H',
-//            'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M')
 
-        val fname = toInitial(firstName?.let { transliteration(it) })
-        val lname = toInitial(lastName?.let { transliteration(it) })
+
+    fun toInitials(firstName: String?, lastName: String?): String? {
+
+        val fname = firstName?.replace(Regex("[^a-zA-Zа-яА-Я]"), "")?.take(1)?.capitalize()
+        val lname = lastName?.replace(Regex("[^a-zA-Zа-яА-Я]"), "")?.take(1)?.capitalize()
 
         return when (Pair(fname.isNullOrEmpty(), lname.isNullOrEmpty())) {
             Pair(true, true) -> null
@@ -102,22 +99,5 @@ object Utils {
             Pair(false, true) -> fname
             else -> fname+lname
         }
-
-//        return if (firstName?.trim().isNullOrEmpty() && lastName?.trim().isNullOrEmpty()) "null"
-//        else if(firstName?.trim().isNullOrEmpty() && !lastName?.trim().isNullOrEmpty()) "${lastName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0)}"
-//        else if(firstName?.trim().isNullOrEmpty() && !list.contains(lastName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0))) "null"
-//
-//        else if(!firstName?.trim().isNullOrEmpty() && lastName?.trim().isNullOrEmpty()) "${firstName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0)}"
-//        else if(!list.contains(firstName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0)) && lastName?.trim().isNullOrEmpty()) "null"
-//
-//        else if(!firstName?.trim().isNullOrEmpty() && !list.contains(lastName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0))) "${firstName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0)}"
-//
-//        else if(!list.contains(firstName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0)) && !lastName?.trim().isNullOrEmpty()) "${lastName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0)}"
-//
-//        else if(!list.contains(firstName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0)) &&  !list.contains(lastName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0))) "null"
-//
-//            else "${firstName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0)} ${lastName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0)}"
-
-
     }
 }
