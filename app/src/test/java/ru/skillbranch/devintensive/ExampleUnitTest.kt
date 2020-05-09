@@ -156,7 +156,7 @@ class ExampleUnitTest {
 
     @Test
     fun test_stripHtml(){
-        println("Бла         бла<p class=\"title\">Образовательное   IT-сообщество Skill       Branch</p>парам      пам пам<b>Тратата</B>конец".stripHtml()) //Образовательное IT-сообщество Skill Branch
-        println("<p>Образовательное              IT-сообщество Skill Branch</p>".stripHtml()) //Образовательное IT-сообщество Skill Branch
+        println("    Бла         бла<p class=\"title\">Образовательное   IT-сообщество Skill       Branch</p>парам      пам пам<b>Тратата</B>конец&nbsp; &amp; &gt;    ".stripHtml()) //Образовательное IT-сообщество Skill Branch
+        println("<p>   Образовательное              IT-сообщество Skill Branch</p>".stripHtml()) //Образовательное IT-сообщество Skill Branch
     }
 }
