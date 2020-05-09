@@ -86,12 +86,38 @@ object Utils {
         return result
     }
 
+    private fun toInitial(str: String?): String? {
+        return str?.replace(Regex("[^a-zA-Z]"), "")?.take(1)?.capitalize()
+    }
     fun toInitials(firstName: String?, lastName: String?): String? {
-        return if(firstName?.trim().isNullOrEmpty()&&lastName?.trim().isNullOrEmpty()) "null"
-        else
-            if (firstName?.trim().isNullOrEmpty()) "${lastName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0)}"
-            else
-                if (lastName?.trim().isNullOrEmpty()) "${firstName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0)}"
-                else "${firstName?.capitalize()?.let { transliteration(it) }?.get(0)}${lastName?.capitalize()?.let { transliteration(it) }?.get(0)}"
+//        val list = listOf('Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H',
+//            'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M')
+
+        val fname = toInitial(firstName?.let { transliteration(it) })
+        val lname = toInitial(lastName?.let { transliteration(it) })
+
+        return when (Pair(fname.isNullOrEmpty(), lname.isNullOrEmpty())) {
+            Pair(true, true) -> null
+            Pair(true, false) -> lname
+            Pair(false, true) -> fname
+            else -> fname+lname
+        }
+
+//        return if (firstName?.trim().isNullOrEmpty() && lastName?.trim().isNullOrEmpty()) "null"
+//        else if(firstName?.trim().isNullOrEmpty() && !lastName?.trim().isNullOrEmpty()) "${lastName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0)}"
+//        else if(firstName?.trim().isNullOrEmpty() && !list.contains(lastName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0))) "null"
+//
+//        else if(!firstName?.trim().isNullOrEmpty() && lastName?.trim().isNullOrEmpty()) "${firstName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0)}"
+//        else if(!list.contains(firstName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0)) && lastName?.trim().isNullOrEmpty()) "null"
+//
+//        else if(!firstName?.trim().isNullOrEmpty() && !list.contains(lastName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0))) "${firstName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0)}"
+//
+//        else if(!list.contains(firstName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0)) && !lastName?.trim().isNullOrEmpty()) "${lastName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0)}"
+//
+//        else if(!list.contains(firstName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0)) &&  !list.contains(lastName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0))) "null"
+//
+//            else "${firstName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0)} ${lastName?.trim()?.capitalize()?.let { transliteration(it) }?.get(0)}"
+
+
     }
 }

@@ -13,8 +13,25 @@ fun String.truncate(value: Int = 16): String {
     }
 }
 
-fun String.stripHtml(): String{
-    val str: String = this.trim()
-    return str.substringAfter('>').substringBeforeLast('<').trim().replace("  " +
-            "     ", " ").replace("   ", " ").replace("  ", " ")
+fun String.stripHtml(): String {
+    var str: String = this.trim()
+    var strTemp: String
+    var count = 0
+    for (char in str){
+        if(char == '<') {
+            count++
+        }
+    }
+    for (i in 1..count){
+        strTemp = str.substringBefore('<')
+        str = "$strTemp ${str.substringAfter(">")}"
+    }
+    var strEnd = ""
+        for (i in str.indices){
+        if (((i == 0 || i == str.length-1) && str[i] == ' ') || ((str[i] == ' ') && (str[i-1] == ' ')))
+            else {
+            strEnd = "$strEnd${str[i]}"
+        }
+    }
+    return strEnd
 }

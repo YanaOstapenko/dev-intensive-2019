@@ -71,12 +71,16 @@ class ExampleUnitTest {
 
     @Test
     fun test_toInitials(){
-        println(Utils.toInitials("Яна", "Остапенко"))
-        println(Utils.toInitials(" ", ""))
-        println(Utils.toInitials(null, ""))
-        println(Utils.toInitials("yana", null))
-        println(Utils.toInitials(null,"dfssadf dsfasdf asDAsdsad"))
-        println(Utils.toInitials(null, null))
+        println(Utils.toInitials("Яна", "Остапенко")) //YO
+        println(Utils.toInitials(" ", "")) //null
+        println(Utils.toInitials(null, "")) //null
+        println(Utils.toInitials("yana", null)) //Y
+        println(Utils.toInitials(null,"dfssadfdsfasdfasDAsdsad")) //D
+        println(Utils.toInitials(null, null)) //null
+        println(Utils.toInitials("john" ,"doe")) //JD
+        println(Utils.toInitials("John", null)) //J
+        println(Utils.toInitials("77", "23434")) //null
+        println(Utils.toInitials("     23", "")) //null
     }
 
     @Test
@@ -152,7 +156,7 @@ class ExampleUnitTest {
 
     @Test
     fun test_stripHtml(){
-        println("<p class=\"title\">Образовательное IT-сообщество Skill Branch</p>".stripHtml()) //Образовательное IT-сообщество Skill Branch
-        println("<p>Образовательное       IT-сообщество Skill Branch</p>".stripHtml()) //Образовательное IT-сообщество Skill Branch
+        println("Бла         бла<p class=\"title\">Образовательное   IT-сообщество Skill       Branch</p>парам      пам пам<b>Тратата</B>конец".stripHtml()) //Образовательное IT-сообщество Skill Branch
+        println("<p>Образовательное              IT-сообщество Skill Branch</p>".stripHtml()) //Образовательное IT-сообщество Skill Branch
     }
 }
