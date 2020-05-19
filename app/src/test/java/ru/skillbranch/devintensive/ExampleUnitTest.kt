@@ -86,6 +86,7 @@ class ExampleUnitTest {
         println(Utils.toInitials("&", "")) //null
         println(Utils.toInitials("&", "Пупкин")) //P
         println(Utils.toInitials("Вася", ":")) //V
+        
     }
 
     @Test

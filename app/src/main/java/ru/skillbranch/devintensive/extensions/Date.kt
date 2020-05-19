@@ -67,10 +67,10 @@ enum class TimeUnits{
 
     fun plural(value: Int): String{
         return when (this) {
-            TimeUnits.SECOND -> "$value ${pluralForm(value.toInt(), "секунду", "секунды", "секунд")}"
-            TimeUnits.MINUTE -> "$value ${pluralForm(value.toInt(), "минуту", "минуты", "минут")}"
-            TimeUnits.HOUR -> "$value ${pluralForm(value.toInt(), "час", "часа", "часов")}"
-            TimeUnits.DAY -> "$value ${pluralForm(value.toInt(), "день", "дня", "дней")}"
+            SECOND -> "$value ${pluralForm(value.toInt(), "секунду", "секунды", "секунд")}"
+            MINUTE -> "$value ${pluralForm(value.toInt(), "минуту", "минуты", "минут")}"
+            HOUR -> "$value ${pluralForm(value.toInt(), "час", "часа", "часов")}"
+            DAY -> "$value ${pluralForm(value.toInt(), "день", "дня", "дней")}"
         }
     }
 }

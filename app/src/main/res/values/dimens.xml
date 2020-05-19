@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Created by Yana Ostapenko, 2020
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<resources>
+    <dimen name="font_large_24">24sp</dimen>
+    <dimen name="font_normal_16">16sp</dimen>
+    <dimen name="font_small_12">8sp</dimen>
+
+    <dimen name="spacing_hude_32">32dp</dimen>
+    <dimen name="spacing_large_24">24dp</dimen>
+    <dimen name="spacing_normal_16">16dp</dimen>
+    <dimen name="spacing_small_8">8dp</dimen>
+    <dimen name="spacing_tiny_4">4dp</dimen>
+
+    <dimen name="image_button_size_24">24dp</dimen>
+</resources>
