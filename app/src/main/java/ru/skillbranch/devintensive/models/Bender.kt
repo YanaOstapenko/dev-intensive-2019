@@ -18,6 +18,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
 
     }
 
+
    /* val STRING_ANSWER_UPPER = Pattern.compile(
         """[A-Z][^A-Z]+"""
     )
