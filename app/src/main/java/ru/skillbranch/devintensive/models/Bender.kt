@@ -19,7 +19,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
 
     }
 
-    val STRING_ANSWER = Pattern.compile(
+    /*val STRING_ANSWER = Pattern.compile(
         "[a-zA-Zа-яА-Я]{1,256}"
     )
     val YEAR_ANSWER = Pattern.compile(
@@ -43,9 +43,9 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     private fun isValidNumber(number: String): Boolean {
         val pattern = NUMBER_ANSWER
         return pattern.matcher(number).matches()
-    }
+    }*/
 
-    fun answer(answer: String) : Pair <String, Triple<Int, Int, Int>>{
+    fun listenAnswer(answer: String) : Pair <String, Triple<Int, Int, Int>>{
         return if(question.answers.contains(answer)){
             question = question.nextQuestion()
             "Отлично - это правильный ответ!\n${question.question}" to status.color
@@ -57,7 +57,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
         }
     }
 
-    fun listenAnswer(answer: String) : Pair<String, Triple<Int, Int, Int>>{
+    /*fun listenAnswer(answer: String) : Pair<String, Triple<Int, Int, Int>>{
         if(question == Question.NAME || question == Question.PROFESSION || question == Question.MATERIAL){
             return if (isValidStr(answer)){
                 answer(answer)
@@ -82,7 +82,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                     }
                 }
             return "Отлично - это правильный ответ!\n${question.question}" to status.color
-    }
+    }*/
 
     enum class Status(val color : Triple<Int, Int, Int>){
         NORMAL(Triple(255, 255, 255)),
