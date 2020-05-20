@@ -5,18 +5,18 @@ import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
+//import android.view.KeyEvent
 import android.view.View
-import android.view.inputmethod.EditorInfo
+//import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
-import ru.skillbranch.devintensive.extensions.hideKeyboard
+/*import ru.skillbranch.devintensive.extensions.hideKeyboard
 import ru.skillbranch.devintensive.extensions.isKeyboardClosed
-import ru.skillbranch.devintensive.extensions.isKeyboardOpen
+import ru.skillbranch.devintensive.extensions.isKeyboardOpen*/
 import ru.skillbranch.devintensive.models.Bender
 
-class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEditorActionListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener /*TextView.OnEditorActionListener*/ {
     lateinit var benderImage: ImageView
     lateinit var textTxt: TextView
     lateinit var messageEt: TextView
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
 
         textTxt.setText(benderObj.askQuestion())
         sendBtn.setOnClickListener(this)
-        messageEt.setOnEditorActionListener(this)
+        //messageEt.setOnEditorActionListener(this)
     }
 
     /**
@@ -174,11 +174,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
         }
     }
 
-    override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+/*    override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
         if (actionId == EditorInfo.IME_ACTION_DONE) {
             onClick(sendBtn)
             return true
         }
         return false
-    }
+    }*/
 }
