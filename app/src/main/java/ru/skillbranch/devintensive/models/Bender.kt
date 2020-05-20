@@ -4,8 +4,7 @@
 
 package ru.skillbranch.devintensive.models
 
-/*import android.util.Patterns
-import java.util.regex.Pattern*/
+import java.util.regex.Pattern
 
 
 class Bender(var status: Status = Status.NORMAL, var question: Question = Question.NAME) {
@@ -19,16 +18,34 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
 
     }
 
-    /*val STRING_ANSWER = Pattern.compile(
+   /* val STRING_ANSWER_UPPER = Pattern.compile(
+        """[A-Z][^A-Z]+"""
+    )
+
+    val STRING_ANSWER_LOW = Pattern.compile(
+        "[a-zа-я]"
+    )*/
+
+    val STRING_ANSWER = Pattern.compile(
         "[a-zA-Zа-яА-Я]{1,256}"
     )
     val YEAR_ANSWER = Pattern.compile(
-        "[0-9]{4}"
+        "[0123456789]{0,1000}"
     )
 
     val NUMBER_ANSWER = Pattern.compile(
-        "[0-9]{7}"
+        "[0123456789]{7}"
     )
+
+    /*private fun isValidStrUpper(str: String): Boolean {
+        val pattern = STRING_ANSWER_UPPER
+        return pattern.matcher(str).matches()
+    }
+
+    private fun isValidStrLow(str: String): Boolean {
+        val pattern = STRING_ANSWER_LOW
+        return pattern.matcher(str).matches()
+    }*/
 
     private fun isValidStr(str: String): Boolean {
         val pattern = STRING_ANSWER
@@ -43,9 +60,9 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     private fun isValidNumber(number: String): Boolean {
         val pattern = NUMBER_ANSWER
         return pattern.matcher(number).matches()
-    }*/
+    }
 
-    fun listenAnswer(answer: String) : Pair <String, Triple<Int, Int, Int>>{
+    private fun answer(answer: String) : Pair <String, Triple<Int, Int, Int>>{
         return if(question.answers.contains(answer)){
             question = question.nextQuestion()
             "Отлично - это правильный ответ!\n${question.question}" to status.color
@@ -57,20 +74,35 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
         }
     }
 
-    /*fun listenAnswer(answer: String) : Pair<String, Triple<Int, Int, Int>>{
-        if(question == Question.NAME || question == Question.PROFESSION || question == Question.MATERIAL){
-            return if (isValidStr(answer)){
+    fun listenAnswer(answer: String) : Pair<String, Triple<Int, Int, Int>>{
+        if(question == Question.NAME){
+                return if (answer[0].isUpperCase()){
+                    answer(answer.toLowerCase())
+                } else {
+                    "Имя должно начинаться с заглавной буквы"  to status.color
+                }
+        }
+        if(question == Question.PROFESSION){
+            return if (answer[0].isLowerCase()){
                 answer(answer)
             } else {
-                "Не верный формат"  to status.color
+                "Профессия должна начинаться со строчной буквы"  to status.color
             }
         }
+        else
+            if(question == Question.MATERIAL){
+                return if (isValidStr(answer)){
+                    answer(answer.toLowerCase())
+                } else {
+                    "Материал не должен содержать цифр"  to status.color
+                }
+            }
         else
             if(question == Question.BDAY){
                return if(isValidYear(answer)){
                    answer(answer)
                } else {
-                   "Не верный формат"  to status.color
+                   "Год моего рождения должен содержать только цифры"  to status.color
                }
             }
         else
@@ -78,11 +110,11 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                     return if(isValidNumber(answer)){
                         answer(answer)
                     } else {
-                        "Не верный формат"  to status.color
+                        "Серийный номер содержит только цифры, и их 7"  to status.color
                     }
                 }
             return "Отлично - это правильный ответ!\n${question.question}" to status.color
-    }*/
+    }
 
     enum class Status(val color : Triple<Int, Int, Int>){
         NORMAL(Triple(255, 255, 255)),
@@ -100,10 +132,10 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     }
 
     enum class Question(val question: String, val answers: List<String>){
-        NAME("Как меня зовут?", listOf("бендер", "Бендер", "bender", "Bender")) {
+        NAME("Как меня зовут?", listOf("Бендер", "bender")) {
             override fun nextQuestion(): Question = PROFESSION
         },
-        PROFESSION("Назови мою профессию?", listOf("сгибальщик", "бендер", "robot")){
+        PROFESSION("Назови мою профессию?", listOf("сгибальщик", "bender")){
             override fun nextQuestion(): Question = MATERIAL
         },
         MATERIAL("Из чего я сделан?", listOf("металл", "дерево", "metal", "iron", "wood")){
