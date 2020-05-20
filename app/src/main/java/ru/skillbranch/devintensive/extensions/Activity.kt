@@ -4,23 +4,23 @@
 
 package ru.skillbranch.devintensive.extensions
 
+/*
 import android.app.Activity
 import android.content.Context
-import android.content.res.Configuration
 import android.graphics.Rect
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import kotlin.math.roundToInt
 
+*/
 
+/*
 fun Activity.hideKeyboard(view: View){
         val inputMethodManager= getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 
 }
-
 
 fun Activity.getRootView(): View {
         return findViewById<View>(android.R.id.content)
@@ -42,4 +42,4 @@ fun Activity.isKeyboardOpen(): Boolean {
 
 fun Activity.isKeyboardClosed(): Boolean {
         return !this.isKeyboardOpen()
-}
+}*/

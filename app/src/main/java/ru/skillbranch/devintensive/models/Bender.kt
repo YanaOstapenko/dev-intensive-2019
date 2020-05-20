@@ -4,8 +4,8 @@
 
 package ru.skillbranch.devintensive.models
 
-import android.util.Patterns
-import java.util.regex.Pattern
+/*import android.util.Patterns
+import java.util.regex.Pattern*/
 
 
 class Bender(var status: Status = Status.NORMAL, var question: Question = Question.NAME) {
