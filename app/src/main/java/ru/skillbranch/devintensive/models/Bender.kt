@@ -17,7 +17,17 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
         Question.IDLE -> Question.IDLE.question
 
     }
-    var count = 0
+    companion object Counter{
+        private var count = 0
+        fun currentCount() = count
+        fun countPlus(){
+            ++count
+        }
+        fun countNull(){
+            count = 0
+        }
+    }
+
 
 
    /* val STRING_ANSWER_UPPER = Pattern.compile(
@@ -71,9 +81,9 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
             "Отлично - ты справился\n${question.question}" to status.color
         }
         else{
-            count++
-            if(count > 3){
-                count = 0;
+            countPlus()
+            if(currentCount() > 3){
+                countNull()
                 question = Question.NAME
                 status = Status.NORMAL
                 "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
