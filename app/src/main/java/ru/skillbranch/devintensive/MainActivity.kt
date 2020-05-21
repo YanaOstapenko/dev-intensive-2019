@@ -158,7 +158,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener /*, TextView.OnEd
 
         outState?.putString("STATUS", benderObj.status.name)
         outState?.putString("QUESTION", benderObj.question.name)
-        Log.d("M_MainActivity","onSaveInstanceState ${benderObj.status.name}  ${benderObj.question.name}")
+        Log.d("M_MainActivity","onSaveInstanceState ${benderObj.status.name}  ${benderObj.question.name}  ${Bender.currentCount()}")
     }
 
     override fun onClick(v: View?) {
