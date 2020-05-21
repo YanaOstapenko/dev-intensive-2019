@@ -64,7 +64,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
         return pattern.matcher(number).matches()
     }
 
-    private fun answer(answer: String) : Pair <String, Triple<Int, Int, Int>>{
+    fun listenAnswer(answer: String) : Pair <String, Triple<Int, Int, Int>>{
 
         return if(question.answers.contains(answer)){
             question = question.nextQuestion()
@@ -84,7 +84,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
         }
     }
 
-    fun listenAnswer(answer: String) : Pair<String, Triple<Int, Int, Int>>{
+    /*fun listenAnswer(answer: String) : Pair<String, Triple<Int, Int, Int>>{
         if(question == Question.NAME){
                 return if (answer[0].isUpperCase()){
                     answer(answer.toLowerCase())
@@ -124,7 +124,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                     }
                 }
             return "Отлично - ты справился\n${question.question}" to status.color
-    }
+    }*/
 
     enum class Status(val color : Triple<Int, Int, Int>){
         NORMAL(Triple(255, 255, 255)),

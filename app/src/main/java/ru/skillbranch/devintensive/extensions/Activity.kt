@@ -5,7 +5,7 @@
 package ru.skillbranch.devintensive.extensions
 
 
-import android.app.Activity
+/*import android.app.Activity
 import android.content.Context
 import android.graphics.Rect
 import android.util.TypedValue
@@ -42,4 +42,4 @@ fun Activity.isKeyboardOpen(): Boolean {
 
 fun Activity.isKeyboardClosed(): Boolean {
         return !this.isKeyboardOpen()
-}
+}*/
