@@ -17,6 +17,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
         Question.IDLE -> Question.IDLE.question
 
     }
+    var count = 0
 
 
    /* val STRING_ANSWER_UPPER = Pattern.compile(
@@ -64,14 +65,22 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     }
 
     private fun answer(answer: String) : Pair <String, Triple<Int, Int, Int>>{
+
         return if(question.answers.contains(answer)){
             question = question.nextQuestion()
-            "Отлично - это правильный ответ!\n${question.question}" to status.color
+            "Отлично - ты справился\n${question.question}" to status.color
         }
         else{
+            count++
+            if(count > 3){
+                count = 0;
+                question = Question.NAME
+                status = Status.NORMAL
+                "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
+            }
+            else{
             status = status.nextStatus()
-            "Это не правильный ответ!\n" +
-                    "${question.question}" to status.color
+            "Это неправильный ответ\n${question.question}" to status.color}
         }
     }
 
@@ -114,14 +123,14 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                         "Серийный номер содержит только цифры, и их 7"  to status.color
                     }
                 }
-            return "Отлично - это правильный ответ!\n${question.question}" to status.color
+            return "Отлично - ты справился\n${question.question}" to status.color
     }
 
     enum class Status(val color : Triple<Int, Int, Int>){
         NORMAL(Triple(255, 255, 255)),
         WARNING(Triple(255, 120, 0)),
         DANGER(Triple(255, 60, 60)),
-        CRITICAL(Triple(255, 255, 0));
+        CRITICAL(Triple(255, 0, 0));
 
         fun nextStatus(): Status{
             return if(this.ordinal < values().lastIndex){
@@ -145,7 +154,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
         BDAY("Когда меня создали?", listOf("2993")){
             override fun nextQuestion(): Question = SERIAL
         },
-        SERIAL("мой серийный номер?", listOf("2716057")){
+        SERIAL("Мой серийный номер?", listOf("2716057")){
             override fun nextQuestion(): Question = IDLE
         },
         IDLE("На этом все, вопросов больше нет", listOf()){
