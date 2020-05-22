@@ -165,23 +165,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener , TextView.OnEdit
     override fun onClick(v: View?) {
         if(v?.id == R.id.iv_send){
             val (phrase, color) = benderObj.listenAnswer(messageEt.text.toString())
+            if(phrase.isNotEmpty()){
             messageEt.setText("")
             val (r,g,b) = color
             benderImage.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY)
             textTxt.text = phrase
-            hideKeyboard()
+            hideKeyboard()}
         }
     }
 
     override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
         if (actionId == EditorInfo.IME_ACTION_DONE) {
-            try {
                 onClick(sendBtn)
                 return true
-            }
-            catch (e: Exception){
-                
-            }
         }
         return false
     }

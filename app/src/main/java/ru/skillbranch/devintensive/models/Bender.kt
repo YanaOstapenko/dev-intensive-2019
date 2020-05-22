@@ -95,6 +95,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     }
 
     fun listenAnswer(answer: String) : Pair<String, Triple<Int, Int, Int>>{
+        if(answer.isNotEmpty()){
         if(question == Question.NAME){
                 return if (answer[0].isUpperCase()){
                     answer(answer.toLowerCase())
@@ -138,7 +139,8 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                                 "${question.question}"  to status.color
                     }
                 }
-            return "Отлично - ты справился\n${question.question}" to status.color
+            return "Отлично - ты справился\n${question.question}" to status.color}
+        return "" to status.color
     }
 
     enum class Status(val color : Triple<Int, Int, Int>){
