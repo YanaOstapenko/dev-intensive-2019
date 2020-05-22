@@ -14,13 +14,37 @@ import android.view.inputmethod.InputMethodManager
 import kotlin.math.roundToInt
 
 
-
-
-fun Activity.hideKeyboard(view: View){
-        val inputMethodManager= getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-
+/*fun Activity.hideKeyboard() {
+        // Check if no view has focus:
+        val view: View = this.getCurrentFocus()
+        if (view != null) {
+                val inputManager = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputManager.hideSoftInputFromWindow(
+                        view.windowToken,
+                        InputMethodManager.HIDE_NOT_ALWAYS
+                )
+        }
 }
+
+fun Activity.showKeyboard() {
+        // Check if no view has focus:
+        val view: View = this.getCurrentFocus()
+        if (view != null) {
+                val inputManager =
+                        this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputManager.showSoftInput(
+                        view,
+                        InputMethodManager.SHOW_IMPLICIT
+                )
+        }
+}*/
+
+fun Activity.hideKeyboard(){
+        val view = currentFocus ?: return
+        val inputMethodManager= this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+}
+
 
 fun Activity.getRootView(): View {
         return findViewById<View>(android.R.id.content)
