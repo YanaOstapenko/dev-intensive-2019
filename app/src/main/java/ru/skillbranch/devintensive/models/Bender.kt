@@ -99,14 +99,16 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                 return if (answer[0].isUpperCase()){
                     answer(answer.toLowerCase())
                 } else {
-                    "Имя должно начинаться с заглавной буквы"  to status.color
+                    "Имя должно начинаться с заглавной буквы\n" +
+                            "${question.question}"  to status.color
                 }
         }
         if(question == Question.PROFESSION){
             return if (answer[0].isLowerCase()){
                 answer(answer)
             } else {
-                "Профессия должна начинаться со строчной буквы"  to status.color
+                "Профессия должна начинаться со строчной буквы\n" +
+                        "${question.question}"  to status.color
             }
         }
         else
@@ -114,7 +116,8 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                 return if (isValidStr(answer)){
                     answer(answer.toLowerCase())
                 } else {
-                    "Материал не должен содержать цифр"  to status.color
+                    "Материал не должен содержать цифр\n" +
+                            "${question.question}"  to status.color
                 }
             }
         else
@@ -122,7 +125,8 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                return if(isValidYear(answer)){
                    answer(answer)
                } else {
-                   "Год моего рождения должен содержать только цифры"  to status.color
+                   "Год моего рождения должен содержать только цифры\n" +
+                           "${question.question}"  to status.color
                }
             }
         else
@@ -130,7 +134,8 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                     return if(isValidNumber(answer)){
                         answer(answer)
                     } else {
-                        "Серийный номер содержит только цифры, и их 7"  to status.color
+                        "Серийный номер содержит только цифры, и их 7\n" +
+                                "${question.question}"  to status.color
                     }
                 }
             return "Отлично - ты справился\n${question.question}" to status.color

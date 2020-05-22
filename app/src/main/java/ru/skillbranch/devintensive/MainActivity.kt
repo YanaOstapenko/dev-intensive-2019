@@ -13,6 +13,7 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.skillbranch.devintensive.extensions.hideKeyboard
 import ru.skillbranch.devintensive.models.Bender
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity(), View.OnClickListener , TextView.OnEditorActionListener {
     lateinit var benderImage: ImageView
@@ -174,8 +175,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener , TextView.OnEdit
 
     override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
         if (actionId == EditorInfo.IME_ACTION_DONE) {
-            onClick(sendBtn)
-            return true
+            try {
+                onClick(sendBtn)
+                return true
+            }
+            catch (e: Exception){
+                
+            }
         }
         return false
     }
